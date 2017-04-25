@@ -1,48 +1,48 @@
 {% extends 'FacturationEFactureBundle::layout.html.twig' %}
 
 {% block container %}
-    <h1>Factures list</h1>
+    <div class="col-md-12">
+        <h1>Factures list</h1>
+        <a class="btn btn-success" href="{{ path('facture_new') }}">Create a new Facture</a>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Destinataire</th>
-            <th>Reference facture</th>
-            <th>Date création facture</th>
-            <th>Date échéance facture</th>
-            <th>Montant</th>
-            <th>Etat facture</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for facture in factures %}
+        <table class="table" id="efacture">
+            <thead>
             <tr>
-                <td><a href="{{ path('facture_show', { 'id': facture.id }) }}">{{ facture.id }}</a></td>
-                <td>{{ facture.destinataire }}</td>
-                <td>{{ facture.referenceFacture }}</td>
-                <td>{{ facture.dateCreationFacture|date('d-M-Y') }}</td>
-                <td>{{ facture.dateEcheanceFacture|date('d-M-Y') }}</td>
-                <td>{{ facture.montant }}</td>
-                <td>{{ facture.etatFacture }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('facture_show', { 'id': facture.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('facture_edit', { 'id': facture.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
+                <th>Id</th>
+                <th>Destinataire</th>
+                <th>Reference facture</th>
+                <th>Date création facture</th>
+                <th>Date échéance facture</th>
+                <th>Montant</th>
+                <th>Etat facture</th>
+                <th>Action</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for facture in factures %}
+                <tr>
+                    <td><a href="{{ path('facture_show', { 'id': facture.id }) }}">{{ facture.id }}</a></td>
+                    <td>{{ facture.destinataire }}</td>
+                    <td>{{ facture.referenceFacture }}</td>
+                    <td>{{ facture.dateCreationFacture|date('d-M-Y') }}</td>
+                    <td>{{ facture.dateEcheanceFacture|date('d-M-Y') }}</td>
+                    <td>{{ facture.montant }}</td>
+                    <td>
+                        {% if facture.etatFacture == 'payée' %}
+                        <span class="label label-success">{{ facture.etatFacture }}</span>
+                        {% else %}
+                        <span class="label label-danger">{{ facture.etatFacture }}</span>
+                        {% endif %}
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('facture_show', { 'id': facture.id }) }}">show</a>
+                        <a class="btn btn-primary" href="{{ path('facture_edit', { 'id': facture.id }) }}">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block javascript %}
 
-    <ul>
-        <li>
-            <a href="{{ path('facture_new') }}">Create a new Facture</a>
-        </li>
-    </ul>
 {% endblock %}
