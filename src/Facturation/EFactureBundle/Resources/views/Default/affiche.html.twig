@@ -1,0 +1,48 @@
+{% extends 'FacturationEFactureBundle::layout.html.twig' %}
+
+{% block container %}
+    <h1>Factures list</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Destinataire</th>
+            <th>Reference facture</th>
+            <th>Date création facture</th>
+            <th>Date échéance facture</th>
+            <th>Montant</th>
+            <th>Etat facture</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for facture in factures %}
+            <tr>
+                <td><a href="{{ path('facture_show', { 'id': facture.id }) }}">{{ facture.id }}</a></td>
+                <td>{{ facture.destinataire }}</td>
+                <td>{{ facture.referenceFacture }}</td>
+                <td>{{ facture.dateCreationFacture|date('d-M-Y') }}</td>
+                <td>{{ facture.dateEcheanceFacture|date('d-M-Y') }}</td>
+                <td>{{ facture.montant }}</td>
+                <td>{{ facture.etatFacture }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('facture_show', { 'id': facture.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('facture_edit', { 'id': facture.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('facture_new') }}">Create a new Facture</a>
+        </li>
+    </ul>
+{% endblock %}

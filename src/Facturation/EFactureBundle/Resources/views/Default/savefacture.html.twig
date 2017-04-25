@@ -1,0 +1,19 @@
+{% extends 'FacturationEFactureBundle::layout.html.twig' %}
+
+
+
+{% block container %}
+    <h1>Créer votre Facture</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('facture_affiche') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}
+
